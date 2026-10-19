@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lumen Remote</string>
+    <string name="status_connected">Connected</string>
+    <string name="status_connecting">Connecting…</string>
+    <string name="status_reconnecting">Reconnecting…</string>
+    <string name="status_needs_pairing">Pairing required</string>
+    <string name="status_offline">Offline · tap to open</string>
+    <string name="status_tap_to_connect">Tap a button to connect</string>
+    <string name="channel_remote">Notification remote</string>
+    <string name="channel_remote_description">Control your TV from the notification shade and lock screen</string>
+    <string name="action_hide">Hide</string>
+    <string name="open_app">Open Lumen Remote</string>
+    <string name="widget_description">D-pad, volume and playback controls for your TV</string>
+    <string name="tile_label">TV Remote</string>
+    <string name="key_power">Power</string>
+    <string name="key_up">Up</string>
+    <string name="key_down">Down</string>
+    <string name="key_left">Left</string>
+    <string name="key_right">Right</string>
+    <string name="key_ok">OK</string>
+    <string name="key_back">Back</string>
+    <string name="key_home">Home</string>
+    <string name="key_mute">Mute</string>
+    <string name="key_volume_up">Volume up</string>
+    <string name="key_volume_down">Volume down</string>
+    <string name="key_play_pause">Play or pause</string>
+</resources>

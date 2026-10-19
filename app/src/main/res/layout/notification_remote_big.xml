@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView android:id="@+id/title" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Compat.Notification.Title" android:maxLines="1" android:ellipsize="end" />
+    <TextView android:id="@+id/status" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Compat.Notification" android:maxLines="1" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center" android:layout_marginTop="6dp">
+        <ImageButton android:id="@+id/btn_power" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/rv_button_bg" android:src="@drawable/rv_power" android:contentDescription="@string/key_power" android:scaleType="center" />
+        <ImageButton android:layout_marginStart="12dp" android:id="@+id/btn_play" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/rv_button_bg" android:src="@drawable/rv_play" android:contentDescription="@string/key_play_pause" android:scaleType="center" />
+        <ImageButton android:layout_marginStart="12dp" android:id="@+id/btn_mute" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/rv_button_bg" android:src="@drawable/rv_mute" android:contentDescription="@string/key_mute" android:scaleType="center" />
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center" android:layout_marginTop="6dp">
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+        <ImageButton android:id="@+id/btn_back" android:layout_width="40dp" android:layout_height="40dp" android:background="@drawable/rv_button_bg" android:src="@drawable/rv_back" android:contentDescription="@string/key_back" android:scaleType="center" />
+        <ImageButton android:layout_marginTop="12dp" android:id="@+id/btn_home" android:layout_width="40dp" android:layout_height="40dp" android:background="@drawable/rv_button_bg" android:src="@drawable/rv_home" android:contentDescription="@string/key_home" android:scaleType="center" />
+        </LinearLayout>
+        <LinearLayout android:layout_marginStart="20dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+        <ImageButton android:id="@+id/btn_up" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/rv_button_bg" android:src="@drawable/rv_up" android:contentDescription="@string/key_up" android:scaleType="center" />
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+        <ImageButton android:id="@+id/btn_left" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/rv_button_bg" android:src="@drawable/rv_left" android:contentDescription="@string/key_left" android:scaleType="center" />
+        <ImageButton android:layout_marginStart="4dp" android:id="@+id/btn_ok" android:layout_width="44dp" android:layout_height="44dp" android:background="@drawable/rv_button_bg" android:src="@drawable/rv_ok" android:contentDescription="@string/key_ok" android:scaleType="center" />
+        <ImageButton android:layout_marginStart="4dp" android:id="@+id/btn_right" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/rv_button_bg" android:src="@drawable/rv_right" android:contentDescription="@string/key_right" android:scaleType="center" />
+            </LinearLayout>
+        <ImageButton android:id="@+id/btn_down" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/rv_button_bg" android:src="@drawable/rv_down" android:contentDescription="@string/key_down" android:scaleType="center" />
+        </LinearLayout>
+        <LinearLayout android:layout_marginStart="20dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+        <ImageButton android:id="@+id/btn_vol_up" android:layout_width="40dp" android:layout_height="40dp" android:background="@drawable/rv_button_bg" android:src="@drawable/rv_vol_up" android:contentDescription="@string/key_volume_up" android:scaleType="center" />
+        <ImageButton android:layout_marginTop="12dp" android:id="@+id/btn_vol_down" android:layout_width="40dp" android:layout_height="40dp" android:background="@drawable/rv_button_bg" android:src="@drawable/rv_vol_down" android:contentDescription="@string/key_volume_down" android:scaleType="center" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

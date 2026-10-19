@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="rv_icon">#1D1B20</color>
+    <color name="rv_button">#1F6D4AFF</color>
+    <color name="rv_surface">#F2F4F0FF</color>
+    <color name="splash_background">#0A0A12</color>
+</resources>
