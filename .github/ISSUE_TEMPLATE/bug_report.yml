@@ -1,0 +1,40 @@
+name: Bug report
+description: Something doesn't work the way it should
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to report this. The more detail you give, the faster it gets fixed.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: tv
+    attributes:
+      label: TV model
+      placeholder: e.g. Sony Bravia XR-55A80L, Chromecast with Google TV, Nvidia Shield
+    validations:
+      required: true
+  - type: input
+    id: phone
+    attributes:
+      label: Phone and Android version
+      placeholder: e.g. Pixel 8, Android 16
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Lumen Remote version
+      description: Settings > About
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Screenshots, screen recordings, or whether it happens every time.
