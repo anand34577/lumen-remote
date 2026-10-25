@@ -2,6 +2,11 @@
 
 All notable changes to Lumen Remote are listed here. Versions follow [semantic versioning](https://semver.org).
 
+## [1.0.4] - 2026-10-25
+
+### Changed
+- Updated Kotlin, DataStore and the build tooling to their latest releases. Nothing changes in how the app looks or behaves.
+
 ## [1.0.3] - 2026-10-25
 
 ### Fixed
