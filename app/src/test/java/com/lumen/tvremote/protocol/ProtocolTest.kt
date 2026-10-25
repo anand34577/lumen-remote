@@ -137,6 +137,13 @@ class ProtocolTest {
         assertEquals("phone", msg.message(10)?.string(2))
     }
 
+    @Test
+    fun hugeFieldLengthIsRejectedWithoutOverflow() {
+        // Field 1, length-delimited, declaring a length of 2^31 - 1 with no bytes behind it.
+        val data = byteArrayOf(0x0A, 0xFF.toByte(), 0xFF.toByte(), 0xFF.toByte(), 0xFF.toByte(), 0x07)
+        assertNull(ProtoMessage.parseOrNull(data))
+    }
+
     private fun selfSigned(): X509Certificate {
         val kp = KeyPairGenerator.getInstance("RSA").apply { initialize(2048) }.generateKeyPair()
         val name = X500Name("CN=test")

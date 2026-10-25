@@ -2,6 +2,15 @@
 
 All notable changes to Lumen Remote are listed here. Versions follow [semantic versioning](https://semver.org).
 
+## [1.0.1] - 2026-10-25
+
+### Fixed
+- A button held down when you left the screen, or a macro cancelled during a long press, could leave that key stuck on the TV. Keys are now always released.
+- A malformed message from a device on the network can no longer crash the app.
+- Adding a TV by an IP address that is already saved now updates that TV instead of creating a duplicate.
+- Changing a TV's port in the editor now reconnects, not just changing its address.
+- Closing the TV list while a scan was resolving a device could crash on older Android versions.
+
 ## [1.0.0] - 2026-10-19
 
 The first public release.

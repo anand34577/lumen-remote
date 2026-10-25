@@ -111,29 +111,36 @@ private fun Modifier.keyPress(
 
         // Poll the pointer until it lifts, firing repeats or the long press as time passes.
         var nextRepeat = start + REPEAT_START_MS
-        while (true) {
-            val event = withTimeoutOrNull(16) { awaitPointerEvent() }
-            if (event != null && event.changes.all { !it.pressed }) break
-            val now = System.currentTimeMillis()
-            when (behavior) {
-                HoldBehavior.REPEAT -> if (now >= nextRepeat) {
-                    sink.tap(key)
-                    haptic(false)
-                    nextRepeat = now + repeatMs
+        var released = false
+        try {
+            while (true) {
+                val event = withTimeoutOrNull(16) { awaitPointerEvent() }
+                if (event != null && event.changes.all { !it.pressed }) break
+                val now = System.currentTimeMillis()
+                when (behavior) {
+                    HoldBehavior.REPEAT -> if (now >= nextRepeat) {
+                        sink.tap(key)
+                        haptic(false)
+                        nextRepeat = now + repeatMs
+                    }
+                    HoldBehavior.LONG_PRESS -> if (!longStarted && now - start >= LONG_PRESS_MS) {
+                        longStarted = true
+                        sink.longStart(key)
+                        haptic(true)
+                    }
+                    HoldBehavior.NONE -> Unit
                 }
-                HoldBehavior.LONG_PRESS -> if (!longStarted && now - start >= LONG_PRESS_MS) {
-                    longStarted = true
-                    sink.longStart(key)
-                    haptic(true)
-                }
-                HoldBehavior.NONE -> Unit
             }
+            released = true
+            when {
+                longStarted -> sink.longEnd(key)
+                behavior != HoldBehavior.REPEAT -> sink.tap(key)
+            }
+        } finally {
+            // A cancelled gesture (screen left, recomposition) must not leave the TV key held down.
+            if (!released && longStarted) sink.longEnd(key)
+            onPressed(false)
         }
-        when {
-            longStarted -> sink.longEnd(key)
-            behavior != HoldBehavior.REPEAT -> sink.tap(key)
-        }
-        onPressed(false)
     }
 }
 
@@ -258,22 +265,28 @@ fun DPad(sink: KeySink, repeatMs: Int, modifier: Modifier = Modifier) {
                     var longStarted = false
                     var nextRepeat = start + REPEAT_START_MS
                     if (!longCapable) sink.tap(k)
-                    while (true) {
-                        val event = withTimeoutOrNull(16) { awaitPointerEvent() }
-                        if (event != null && event.changes.all { !it.pressed }) break
-                        val now = System.currentTimeMillis()
-                        if (!longCapable && now >= nextRepeat) {
-                            sink.tap(k)
-                            haptics.light()
-                            nextRepeat = now + repeatMs
-                        } else if (longCapable && !longStarted && now - start >= LONG_PRESS_MS) {
-                            longStarted = true
-                            sink.longStart(k)
-                            haptics.heavy()
+                    var released = false
+                    try {
+                        while (true) {
+                            val event = withTimeoutOrNull(16) { awaitPointerEvent() }
+                            if (event != null && event.changes.all { !it.pressed }) break
+                            val now = System.currentTimeMillis()
+                            if (!longCapable && now >= nextRepeat) {
+                                sink.tap(k)
+                                haptics.light()
+                                nextRepeat = now + repeatMs
+                            } else if (longCapable && !longStarted && now - start >= LONG_PRESS_MS) {
+                                longStarted = true
+                                sink.longStart(k)
+                                haptics.heavy()
+                            }
                         }
+                        released = true
+                        if (longStarted) sink.longEnd(k) else if (longCapable) sink.tap(k)
+                    } finally {
+                        if (!released && longStarted) sink.longEnd(k)
+                        active = null
                     }
-                    if (longStarted) sink.longEnd(k) else if (longCapable) sink.tap(k)
-                    active = null
                 }
             }
             .semantics { contentDescription = "Directional pad. OK in the center" },
