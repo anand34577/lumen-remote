@@ -106,8 +106,10 @@ class ProtoMessage private constructor(private val fields: Map<Int, List<Any>>) 
                 val value: Any = when ((tag and 0x7).toInt()) {
                     ProtoWriter.WIRE_VARINT -> readVarint()
                     ProtoWriter.WIRE_LENGTH_DELIMITED -> {
-                        val len = readVarint().toInt()
-                        if (len < 0 || pos + len > data.size) throw IOException("Truncated field $field")
+                        val declared = readVarint()
+                        // Compared as a Long and against the remaining bytes so a hostile length cannot overflow.
+                        if (declared < 0 || declared > data.size - pos) throw IOException("Truncated field $field")
+                        val len = declared.toInt()
                         data.copyOfRange(pos, pos + len).also { pos += len }
                     }
                     ProtoWriter.WIRE_FIXED64 -> {

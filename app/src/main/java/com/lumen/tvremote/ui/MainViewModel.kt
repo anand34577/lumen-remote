@@ -56,11 +56,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addManual(name: String, host: String, mac: String?) {
         viewModelScope.launch {
-            val device = TvDevice(
-                name = name.ifBlank { host },
-                host = host.trim(),
-                macAddress = mac?.takeIf { WakeOnLan.isValidMac(it) }?.let(WakeOnLan::normalize),
-            )
+            val address = host.trim()
+            val macAddress = mac?.takeIf { WakeOnLan.isValidMac(it) }?.let(WakeOnLan::normalize)
+            // Adding an address that is already saved updates that TV instead of creating a duplicate.
+            val existing = store.devices.first().find { it.host == address }
+            val device = existing?.copy(name = name.ifBlank { existing.name }, macAddress = macAddress ?: existing.macAddress)
+                ?: TvDevice(name = name.ifBlank { address }, host = address, macAddress = macAddress)
             store.upsertDevice(device)
             select(device)
         }
@@ -70,7 +71,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             store.upsertDevice(device)
             val current = tvState.value.device
-            if (current?.id == device.id && current.host != device.host) controller.connect(device)
+            if (current?.id == device.id && (current.host != device.host || current.port != device.port)) controller.connect(device)
         }
     }
 

@@ -56,7 +56,8 @@ class TvDiscovery(context: Context) {
                             resolving = false
                             if (errorCode == NsdManager.FAILURE_ALREADY_ACTIVE) pendingResolves.addLast(info)
                         }
-                        executor.execute { Thread.sleep(150); resolveNext() }
+                        // The flow may have closed (and the executor shut down) while this callback was in flight.
+                        runCatching { executor.execute { Thread.sleep(150); resolveNext() } }
                     }
 
                     override fun onServiceResolved(info: NsdServiceInfo) {

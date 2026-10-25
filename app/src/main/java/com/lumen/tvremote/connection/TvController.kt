@@ -443,8 +443,12 @@ class TvController(
                     when (step) {
                         is MacroStep.Key -> if (step.longPress) {
                             keyDown(step.key)
-                            delay(LONG_PRESS_MS)
-                            keyUp(step.key)
+                            try {
+                                delay(LONG_PRESS_MS)
+                            } finally {
+                                // Cancelling mid-press must still release the key, or the TV keeps it held.
+                                keyUp(step.key)
+                            }
                         } else {
                             sendKey(step.key)
                         }
