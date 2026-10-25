@@ -2,6 +2,11 @@
 
 All notable changes to Lumen Remote are listed here. Versions follow [semantic versioning](https://semver.org).
 
+## [1.0.3] - 2026-10-25
+
+### Fixed
+- After allowing local network access in system settings, the app now notices when you return and connects right away, instead of staying on the permission prompt.
+
 ## [1.0.2] - 2026-10-25
 
 ### Changed
