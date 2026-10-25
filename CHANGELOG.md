@@ -2,6 +2,11 @@
 
 All notable changes to Lumen Remote are listed here. Versions follow [semantic versioning](https://semver.org).
 
+## [1.0.2] - 2026-10-25
+
+### Changed
+- Updated the libraries the app is built on (AndroidX, Navigation, Coroutines, BouncyCastle) to their latest releases. Nothing changes in how the app looks or behaves.
+
 ## [1.0.1] - 2026-10-25
 
 ### Fixed
