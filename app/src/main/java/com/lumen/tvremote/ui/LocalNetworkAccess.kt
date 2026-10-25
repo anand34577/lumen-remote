@@ -15,6 +15,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 
 /** Android 17 made talking to devices on the local network a runtime permission. */
 private const val ACCESS_LOCAL_NETWORK = "android.permission.ACCESS_LOCAL_NETWORK"
@@ -44,6 +46,13 @@ fun rememberLocalNetworkAccess(onGranted: () -> Unit): LocalNetworkAccess {
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { ok ->
         access.granted = ok
         if (ok) onGranted()
+    }
+    // The permission can be granted from system settings while the app is in the background.
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        if (!access.granted && hasLocalNetworkAccess(context)) {
+            access.granted = true
+            onGranted()
+        }
     }
     SideEffect { access.launch = { launcher.launch(ACCESS_LOCAL_NETWORK) } }
     return access

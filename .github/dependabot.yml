@@ -7,6 +7,9 @@ updates:
     groups:
       androidx:
         patterns: ["androidx.*"]
+      everything-else:
+        patterns: ["*"]
+        exclude-patterns: ["androidx.*"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
